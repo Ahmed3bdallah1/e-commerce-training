@@ -2,14 +2,12 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:e_commerce_training/core/cubit/register/register_state.dart';
-import 'package:e_commerce_training/core/managers/navigation.dart';
 import 'package:e_commerce_training/core/network/remote/api_constants.dart';
 import 'package:e_commerce_training/core/network/remote/dio_helper.dart';
 import 'package:e_commerce_training/models/user/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../screens/modules/home_screen.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit() : super(InitialStateRegister());
@@ -17,7 +15,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   static RegisterCubit get(BuildContext context) => BlocProvider.of(context);
   UserModel? userModel;
 
-  void userRegister(BuildContext context, String name, String email,
+  void userRegister( String name, String email,
       String phone, String nationalId, String password) {
     DioHelperStore.postData(url: ApiConstants.registerApi, data: {
       "name": name,
@@ -30,8 +28,8 @@ class RegisterCubit extends Cubit<RegisterState> {
     }).then((value) {
       UserData.fromJson(value.data);
       print(value.data);
-      navigateAndFinishThisScreen(context, const HomeScreen());
-      emit(DoneStateRegister());
+      // navigateAndFinishThisScreen(context, const HomeScreen());
+      emit(DoneStateRegister(userModel!));
     }).catchError((onError) {
       print(onError.toString());
       emit(ErrorStateRegister(onError.toString()));
@@ -49,6 +47,7 @@ class RegisterCubit extends Cubit<RegisterState> {
       image = File(pickedFile.path);
       bytes = File(image!.path).readAsBytesSync();
       userImage = base64Encode(bytes!);
+      print(userImage);
       emit(ChooseImageStateRegister());
     } else {
       emit(UploadErrorMessageRegisterState("there's no image selected"));

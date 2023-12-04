@@ -5,6 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../core/managers/constants_colors.dart';
 import '../../core/managers/navigation.dart';
+import '../../core/managers/values.dart';
+import '../../core/network/local/cache_helper.dart';
+import 'home_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   SignInScreen({super.key});
@@ -17,7 +20,25 @@ class SignInScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return BlocConsumer<SignInCubit, SignInState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is DoneStateSignIn) {
+            if (state.model.status == "success") {
+              print(state.model.message);
+              CacheHelper.saveData(
+                  key: "userId", value: state.model.user!.nationalId)
+                  .then((value) {
+                nationalId = state.model.user!.nationalId;
+              });
+              CacheHelper.saveData(key: "token", value: state.model.user!.token)
+                  .then((value) {
+                token = state.model.user!.token;
+                navigateAndFinishThisScreen(context, const HomeScreen());
+              });
+            } else {
+              print(state.model.message);
+            }
+          }
+        },
         builder: (context, state) {
           SignInCubit cubit = SignInCubit.get(context);
           return Scaffold(

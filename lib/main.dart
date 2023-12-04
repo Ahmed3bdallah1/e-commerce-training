@@ -5,7 +5,6 @@ import 'package:e_commerce_training/core/network/local/cache_helper.dart';
 import 'package:e_commerce_training/core/network/remote/dio_helper.dart';
 import 'package:e_commerce_training/screens/modules/onboard.dart';
 import 'package:e_commerce_training/screens/modules/signin.dart';
-import 'package:e_commerce_training/screens/modules/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +16,8 @@ void main() async {
   await CacheHelper.init();
   DioHelperStore.init();
   boarding = CacheHelper.getData(key: "boarding") ?? false;
+  token = CacheHelper.getData(key: "token");
+  nationalId = CacheHelper.getData(key: "userId");
   if (boarding) {
     nextScreen = SignInScreen();
   } else {

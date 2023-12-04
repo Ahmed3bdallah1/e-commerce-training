@@ -1,8 +1,14 @@
+import 'package:e_commerce_training/models/user/user_model.dart';
+
 abstract class RegisterState {}
 
 class InitialStateRegister extends RegisterState {}
 
-class DoneStateRegister extends RegisterState {}
+class DoneStateRegister extends RegisterState {
+  final UserModel model;
+
+  DoneStateRegister(this.model);
+}
 
 class ErrorStateRegister extends RegisterState {
   String error;

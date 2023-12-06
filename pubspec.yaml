@@ -40,6 +40,8 @@ dependencies:
   bloc: ^8.1.2
   dio: ^5.4.0
   image_picker: ^1.0.4
+  hexcolor: ^3.0.1
+  cached_network_image: ^3.3.0
 
 dev_dependencies:
   flutter_test:

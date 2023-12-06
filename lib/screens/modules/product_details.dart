@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_training/core/managers/constants_colors.dart';
 import 'package:e_commerce_training/models/product/laptop_modl.dart';
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class ProductDetails extends StatefulWidget {
   final LaptopModel laptopModel;
@@ -28,7 +30,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      // appBar: AppBar(backgroundColor: Colors.transparent,elevation: 200,),
+        // appBar: AppBar(backgroundColor: Colors.transparent,elevation: 200,),
         body: Container(
           height: height,
           decoration: BoxDecoration(
@@ -46,7 +48,20 @@ class _ProductDetailsState extends State<ProductDetails> {
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             color: Colors.white12),
-                        child: Image.network(widget.laptopModel.image),
+                        child: CachedNetworkImage(
+                            imageUrl: widget.laptopModel.image,
+                            imageBuilder: (context, imageProvider) =>
+                                Image(image: imageProvider),
+                            placeholder: (context, url) => const Center(
+                                  child: CircularProgressIndicator(
+                                      color: Colors.black),
+                                ),
+                            errorWidget: (context, url, error) {
+                              print(error.toString());
+                              return Center(
+                                  child: CircularProgressIndicator(
+                                      color: HexColor('#07094D')));
+                            }),
                       ),
                     ])),
                 const Divider(color: Colors.white12),
@@ -65,7 +80,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                           children: [
                             Container(
                                 decoration: BoxDecoration(
-                                    gradient: ConstantsColors().linearGradientBlue,
+                                    gradient:
+                                        ConstantsColors().linearGradientBlue,
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(color: Colors.white)),
                                 child: Padding(
@@ -80,7 +96,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                               padding: const EdgeInsets.only(left: 8.0),
                               child: Container(
                                   decoration: BoxDecoration(
-                                      gradient: ConstantsColors().linearGradientBlue,
+                                      gradient:
+                                          ConstantsColors().linearGradientBlue,
                                       borderRadius: BorderRadius.circular(20),
                                       border: Border.all(color: Colors.white)),
                                   child: Padding(
@@ -110,7 +127,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                         const SizedBox(height: 5),
                         AnimatedOpacity(
                             opacity: opacity,
-                            duration: const Duration(seconds: 3),
+                            duration: const Duration(seconds: 2),
                             curve: Curves.easeInExpo,
                             child: Text(widget.laptopModel.description)),
                       ],

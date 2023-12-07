@@ -6,3 +6,5 @@ List<OnboardModel> onboard = [
   OnboardModel("Shopping", "explore our products", Images.onBoardImage),
   OnboardModel("Get Started", "tap to Get Started", Images.onBoardImage)
 ];
+
+List<String> images = [];

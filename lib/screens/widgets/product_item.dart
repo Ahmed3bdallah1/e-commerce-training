@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_training/core/managers/Lists.dart';
 import 'package:e_commerce_training/core/managers/constants_colors.dart';
 import 'package:e_commerce_training/core/managers/navigation.dart';
 import 'package:e_commerce_training/models/product/laptop_modl.dart';
@@ -16,8 +17,13 @@ class ProductItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        images = laptops[index].images;
         navigateToNextScreen(
-            context, ProductDetails(laptopModel: laptops[index]));
+            context,
+            ProductDetails(
+              laptopModel: laptops[index],
+              images: images,
+            ));
       },
       child: Padding(
         padding: const EdgeInsets.all(8.0),

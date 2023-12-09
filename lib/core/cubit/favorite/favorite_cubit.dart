@@ -20,8 +20,8 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       "productId": productId,
     }).then((value) {
       print(value.data);
+      showSnakBar(context, "item added to favorites");
       favoriteModel = FavoriteModel.fromJson(value.data);
-      showSnakBar(context, "Item added to favorites");
       getFavorite();
       emit(AddToFavoriteState());
     }).catchError((error) {
@@ -44,12 +44,11 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
 
   void deleteFavorite(BuildContext context, {required String productId}) {
-    DioHelperStore.getData(url: ApiConstants.favoriteApi, data: {
-      "nationalId": nationalId,
-      "productId": productId,
-    }).then((value) {
-      print(value.data);
+    DioHelperStore.delData(
+        url: ApiConstants.favoriteApi,
+        data: {"nationalId": nationalId, "productId": productId}).then((value) {
       showSnakBar(context, "item removed successfully");
+      print(value.data);
       getFavorite();
       emit(DeleteFavoriteState());
     }).catchError((error) {

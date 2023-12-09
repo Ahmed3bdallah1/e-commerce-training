@@ -132,6 +132,7 @@ class HomeScreen extends StatelessWidget {
                             return FloatingActionButton(
                               backgroundColor: Colors.red,
                               onPressed: () {
+                                 favoriteCubit.getFavorite();
                                 navigateToNextScreen(
                                     context, const FavoriteScreen());
                               },

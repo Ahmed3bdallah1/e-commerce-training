@@ -17,7 +17,7 @@ class FavoriteScreen extends StatelessWidget {
             backgroundColor: Colors.grey[200],
             appBar: AppBar(
               backgroundColor: Colors.grey[200],
-              title: const Text('Cart'),
+              title: const Text('Favorite'),
               centerTitle: true,
             ),
             body: Padding(
@@ -37,7 +37,7 @@ class FavoriteScreen extends StatelessWidget {
                     ),
                   if (cubit.favoriteModel!.products!.isEmpty)
                     const Center(
-                      child: Text('Cart Is Empty'),
+                      child: Text('Favorites Is Empty'),
                     ),
                 ])),
           );

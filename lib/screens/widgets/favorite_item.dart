@@ -97,8 +97,9 @@ class FavoriteItem extends StatelessWidget {
                         ),
                         InkWell(
                           onTap: () {
-                            FavoriteCubit.get(context).deleteFavorite(context,
-                                productId: products.id);
+                            FavoriteCubit.get(context)
+                                .deleteFavorite(context,
+                                    productId: products.id);
                           },
                           child: const Row(
                             mainAxisSize: MainAxisSize.min,

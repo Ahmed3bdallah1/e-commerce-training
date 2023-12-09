@@ -46,6 +46,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   void deleteFavorite(BuildContext context, {required String productId}) {
     DioHelperStore.getData(url: ApiConstants.favoriteApi, data: {
       "nationalId": nationalId,
+      "productId": productId,
     }).then((value) {
       print(value.data);
       showSnakBar(context, "item removed successfully");

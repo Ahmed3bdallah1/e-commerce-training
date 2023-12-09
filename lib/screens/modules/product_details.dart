@@ -38,7 +38,6 @@ class _ProductDetailsState extends State<ProductDetails> {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
-      // appBar: AppBar(backgroundColor: Colors.transparent,elevation: 200,),
       body: Container(
         height: height,
         decoration:
@@ -91,14 +90,13 @@ class _ProductDetailsState extends State<ProductDetails> {
                           count: images.length,
                         )),
                     Positioned(
-                      right: 10,
-                      bottom: 0,
-                      child: FloatingActionButton(
-                          backgroundColor: Colors.red.shade900,
-                          foregroundColor: Colors.white,
-                          onPressed: () {},
-                          child: const Icon(Icons.favorite_border)),
-                    )
+                        right: 10,
+                        bottom: 0,
+                        child: FloatingActionButton(
+                            backgroundColor: Colors.red.shade900,
+                            foregroundColor: Colors.white,
+                            onPressed: () {},
+                            child: const Icon(Icons.favorite_border, size: 30)))
                   ])),
               const Divider(color: Colors.white12),
               Padding(
@@ -169,19 +167,17 @@ class _ProductDetailsState extends State<ProductDetails> {
                       const SizedBox(height: 30),
                       Center(
                           child: InkWell(
-                        onTap: () {},
-                        child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.indigo,
-                                borderRadius: BorderRadius.circular(20)),
-                            width: 150,
-                            height: 40,
-                            child: const Center(
-                                child: Text(
-                              "Add to card",
-                              style: TextStyle(color: Colors.white),
-                            ))),
-                      ))
+                              onTap: () {},
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.indigo,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  width: 150,
+                                  height: 40,
+                                  child: const Center(
+                                      child: Text("Add to card",
+                                          style: TextStyle(
+                                              color: Colors.white)))))),
                     ],
                   ))
             ],

@@ -4,4 +4,8 @@ class ApiConstants {
   static const String registerApi = "$baseUrl/user/register";
   static const String loginApi = "$baseUrl/user/login";
   static const String productLaptopApi = "$baseUrl/product/Laptops";
+  static const String getAllProductsCartApi = "$baseUrl/cart/allProducts";
+  static const String addToCartApi = "$baseUrl/cart/add";
+  static const String deleteFromCartApi = "$baseUrl/cart/delete";
+  static const String updateQuantityCartApi = "$baseUrl/cart";
 }

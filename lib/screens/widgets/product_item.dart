@@ -7,6 +7,8 @@ import 'package:e_commerce_training/screens/modules/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+import '../../core/cubit/cart/cart_cubit.dart';
+
 class ProductItem extends StatelessWidget {
   final List<LaptopModel> laptops;
   final int index;
@@ -15,6 +17,7 @@ class ProductItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CartCubit cubit = CartCubit.get(context);
     return InkWell(
       onTap: () {
         images = laptops[index].images;
@@ -63,27 +66,32 @@ class ProductItem extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(20)),
-                                  color: HexColor('#07094D').withOpacity(0.6),
-                                  gradient:
-                                      ConstantsColors().linearGradientYellow),
+                                  color:
+                                      HexColor('#07094D').withOpacity(0.6),
+                                  gradient: ConstantsColors()
+                                      .linearGradientYellow),
                               height: 125,
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: CachedNetworkImage(
                                       imageUrl: laptops[index].image,
-                                      imageBuilder: (context, imageProvider) =>
-                                          Image(image: imageProvider),
+                                      imageBuilder:
+                                          (context, imageProvider) =>
+                                              Image(image: imageProvider),
                                       placeholder: (context, url) =>
                                           const Center(
-                                            child: CircularProgressIndicator(
-                                                color: Colors.black),
+                                            child:
+                                                CircularProgressIndicator(
+                                                    color: Colors.black),
                                           ),
                                       errorWidget: (context, url, error) {
                                         print(error.toString());
                                         return Center(
-                                            child: CircularProgressIndicator(
-                                                color: HexColor('#07094D')));
+                                            child:
+                                                CircularProgressIndicator(
+                                                    color: HexColor(
+                                                        '#07094D')));
                                       }),
                                 ),
                               ),
@@ -125,18 +133,20 @@ class ProductItem extends StatelessWidget {
                                 if (laptops[index].status == 'New')
                                   Expanded(
                                     child: Container(
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                            color: HexColor('#C70000'),
-                                            borderRadius:
-                                                const BorderRadius.horizontal(
-                                                    left: Radius.circular(20))),
-                                        child: const Center(
-                                            child: Text(
+                                      height: 30,
+                                      decoration: BoxDecoration(
+                                          color: HexColor('#C70000'),
+                                          borderRadius:
+                                              const BorderRadius.horizontal(
+                                                  left: Radius.circular(20))),
+                                      child: const Center(
+                                        child: Text(
                                           '10% Off',
                                           style: TextStyle(
                                               color: Colors.white, fontSize: 8),
-                                        ))),
+                                        ),
+                                      ),
+                                    ),
                                   ),
                               ],
                             ),
@@ -168,20 +178,33 @@ class ProductItem extends StatelessWidget {
                               ),
                               const Spacer(),
                               Container(
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      color: HexColor('#07094D'),
-                                      borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(20),
-                                          bottomRight: Radius.circular(20))),
-                                  child: MaterialButton(
-                                    onPressed: () {},
-                                    child: Text(
-                                      'Buy'.toUpperCase(),
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
-                                  ))
+                                height: 50,
+                                decoration: BoxDecoration(
+                                    color: HexColor('#07094D'),
+                                    borderRadius: const BorderRadius.only(
+                                        topLeft: Radius.circular(20),
+                                        bottomRight: Radius.circular(20))),
+                                child: cubit.isProductInCart(index)
+                                    ? MaterialButton(
+                                        onPressed: () {},
+                                        child: Text(
+                                          'In cart'.toUpperCase(),
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ))
+                                    : MaterialButton(
+                                        onPressed: () {
+                                          cubit.addToCart(context,
+                                              productId: laptops[index].id,
+                                              productName: laptops[index].name);
+                                        },
+                                        child: Text(
+                                          'Buy'.toUpperCase(),
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      ),
+                              )
                             ],
                           ),
                         )

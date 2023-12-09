@@ -1,3 +1,4 @@
+import 'package:e_commerce_training/core/cubit/cart/cart_cubit.dart';
 import 'package:e_commerce_training/core/cubit/login/login_cubit.dart';
 import 'package:e_commerce_training/core/cubit/onboard/onboard_cubit.dart';
 import 'package:e_commerce_training/core/cubit/product/product_cubit.dart';
@@ -10,7 +11,6 @@ import 'package:e_commerce_training/screens/modules/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'core/cubit/register/register_cubit.dart';
 import 'core/managers/themes.dart';
 
@@ -21,9 +21,10 @@ void main() async {
   boarding = CacheHelper.getData(key: "boarding") ?? false;
   token = CacheHelper.getData(key: "token");
   nationalId = CacheHelper.getData(key: "userId");
+  print(nationalId);
   if (token != null && nationalId != null) {
     nextScreen = const HomeScreen();
-  }else if(boarding) {
+  } else if (boarding) {
     nextScreen = SignInScreen();
   } else {
     nextScreen = const OnboardingScreen();
@@ -52,6 +53,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => SignInCubit(),
+          lazy: true,
+        ),
+        BlocProvider(
+          create: (context) => CartCubit(),
           lazy: true,
         ),
         BlocProvider(

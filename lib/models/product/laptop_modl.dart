@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class LaptopModel {
   String id;
   String status;

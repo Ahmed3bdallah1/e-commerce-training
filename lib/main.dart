@@ -1,4 +1,5 @@
 import 'package:e_commerce_training/core/cubit/cart/cart_cubit.dart';
+import 'package:e_commerce_training/core/cubit/favorite/favorite_cubit.dart';
 import 'package:e_commerce_training/core/cubit/login/login_cubit.dart';
 import 'package:e_commerce_training/core/cubit/onboard/onboard_cubit.dart';
 import 'package:e_commerce_training/core/cubit/product/product_cubit.dart';
@@ -60,6 +61,10 @@ class MyApp extends StatelessWidget {
           lazy: true,
         ),
         BlocProvider(
+          create: (context) => FavoriteCubit(),
+          lazy: true,
+        ),
+        BlocProvider(
           create: (context) => ProductCubit()..getProduct(),
           lazy: false,
         ),
@@ -68,7 +73,6 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'e commerce training',
         theme: lightTheme,
-        darkTheme: ThemeData.dark(),
         home: nextScreen,
       ),
     );

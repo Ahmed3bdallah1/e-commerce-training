@@ -43,6 +43,7 @@ dependencies:
   hexcolor: ^3.0.1
   cached_network_image: ^3.3.0
   smooth_page_indicator: ^1.1.0
+  flutter_speed_dial: 3.0.5
 
 dev_dependencies:
   flutter_test:

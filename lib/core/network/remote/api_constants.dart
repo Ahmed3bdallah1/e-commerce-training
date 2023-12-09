@@ -8,4 +8,5 @@ class ApiConstants {
   static const String addToCartApi = "$baseUrl/cart/add";
   static const String deleteFromCartApi = "$baseUrl/cart/delete";
   static const String updateQuantityCartApi = "$baseUrl/cart";
+  static const String favoriteApi = "$baseUrl/favorite";
 }

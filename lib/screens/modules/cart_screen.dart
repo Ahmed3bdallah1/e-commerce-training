@@ -4,10 +4,12 @@ import 'package:e_commerce_training/screens/widgets/cart_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import '../../models/product/laptop_modl.dart';
 import '../widgets/botton.dart';
 
 class CartScreen extends StatelessWidget {
-  const CartScreen({super.key});
+  final List<LaptopModel> laptops;
+  const CartScreen({super.key, required this.laptops});
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,7 @@ class CartScreen extends StatelessWidget {
                       itemCount: cubit.cartModel!.products!.length,
                       itemBuilder: (context, index) {
                         return CartItem(
+                          laptop: laptops[index],
                           cartProduct: cubit.cartModel!.products![index],
                         );
                       },

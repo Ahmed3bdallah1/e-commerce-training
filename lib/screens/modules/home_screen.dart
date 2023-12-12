@@ -96,16 +96,15 @@ class HomeScreen extends StatelessWidget {
                               ConnectionState.waiting) {
                             return const CircularProgressIndicator();
                           } else if (snapshot.hasError) {
-                            return const Icon(
-                              Icons.error,
-                              color: Colors.red,
-                            );
+                            return const Icon(Icons.error, color: Colors.red);
                           } else {
                             return FloatingActionButton(
                               backgroundColor: Colors.white,
                               onPressed: () {
                                 navigateToNextScreen(
-                                    context, const CartScreen());
+                                    context,
+                                    CartScreen(
+                                        laptops: cubit.productModel!.product));
                               },
                               child: const Icon(
                                 CupertinoIcons.cart,
@@ -132,9 +131,11 @@ class HomeScreen extends StatelessWidget {
                             return FloatingActionButton(
                               backgroundColor: Colors.red,
                               onPressed: () {
-                                 favoriteCubit.getFavorite();
+                                favoriteCubit.getFavorite();
                                 navigateToNextScreen(
-                                    context, const FavoriteScreen());
+                                    context,
+                                    FavoriteScreen(
+                                        laptops: cubit.productModel!.product));
                               },
                               child: const Icon(
                                 Icons.favorite_border,

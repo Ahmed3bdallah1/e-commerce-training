@@ -3,9 +3,12 @@ import 'package:e_commerce_training/core/cubit/favorite/favorite_state.dart';
 import 'package:e_commerce_training/screens/widgets/favorite_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../models/product/laptop_modl.dart';
 
 class FavoriteScreen extends StatelessWidget {
-  const FavoriteScreen({super.key});
+  final List<LaptopModel> laptops;
+
+  const FavoriteScreen({super.key, required this.laptops});
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +33,8 @@ class FavoriteScreen extends StatelessWidget {
                         itemCount: cubit.favoriteModel!.products!.length,
                         itemBuilder: (context, index) {
                           return FavoriteItem(
-                            products: cubit.favoriteModel!.products![index],
-                          );
+                              products: cubit.favoriteModel!.products![index],
+                              laptop: laptops[index]);
                         },
                       ),
                     ),

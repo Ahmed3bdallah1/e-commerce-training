@@ -23,7 +23,7 @@ class CartProduct {
   int v;
   int quantity;
   int sales;
-  double totalPrice;
+  dynamic totalPrice;
 
   CartProduct(
       {required this.id,

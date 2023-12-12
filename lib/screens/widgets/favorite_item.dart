@@ -11,14 +11,14 @@ class FavoriteItem extends StatelessWidget {
   final LaptopModel laptop;
   final FavoriteProducts products;
 
-  const FavoriteItem({super.key, required this.products, this.laptop});
+  const FavoriteItem({super.key, required this.products, required this.laptop});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: (){
         navigateToNextScreen(
-            context, ProductDetails(laptopModel: laptop, images: images));
+            context, ProductDetails(laptopModel: laptop, images: laptop.images));
       },
       child: Container(
         width: double.infinity,

@@ -47,7 +47,7 @@ class _ProductDetailsState extends State<ProductDetails> {
         child: ListView(
           children: [
             SizedBox(
-              height: height * .9,
+              height: height,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

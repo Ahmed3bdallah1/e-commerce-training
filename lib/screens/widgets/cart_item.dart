@@ -3,9 +3,7 @@ import 'package:e_commerce_training/models/cart_model/cart_model.dart';
 import 'package:e_commerce_training/screens/modules/product_details.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import '../../core/cubit/cart/cart_cubit.dart';
-import '../../core/managers/Lists.dart';
 import '../../models/product/laptop_modl.dart';
 
 class CartItem extends StatelessWidget {
@@ -18,8 +16,8 @@ class CartItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigateToNextScreen(
-            context, ProductDetails(laptopModel: laptop, images: images));
+        navigateToNextScreen(context,
+            ProductDetails(laptopModel: laptop, images: laptop.images));
       },
       child: Container(
         width: double.infinity,

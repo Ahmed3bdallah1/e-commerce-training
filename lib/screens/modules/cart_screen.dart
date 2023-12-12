@@ -29,7 +29,7 @@ class CartScreen extends StatelessWidget {
               child: Column(children: [
                 if (cubit.cartModel!.products!.isNotEmpty)
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .76,
+                    height: MediaQuery.of(context).size.height * .75,
                     child: ListView.builder(
                       itemCount: cubit.cartModel!.products!.length,
                       itemBuilder: (context, index) {
@@ -42,7 +42,7 @@ class CartScreen extends StatelessWidget {
                   ),
                 if (cubit.cartModel!.products!.isEmpty)
                   SizedBox(
-                    height: MediaQuery.of(context).size.height * .76,
+                    height: MediaQuery.of(context).size.height * .75,
                     child: const Center(
                       child: Text('Cart Is Empty'),
                     ),
@@ -74,9 +74,6 @@ class CartScreen extends StatelessWidget {
                         ],
                       ),
                     )),
-                const SizedBox(
-                  height: 20,
-                ),
               ])),
         );
       },

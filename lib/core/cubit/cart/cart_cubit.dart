@@ -5,6 +5,7 @@ import 'package:e_commerce_training/core/network/remote/dio_helper.dart';
 import 'package:e_commerce_training/models/cart_model/cart_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../models/product/laptop_modl.dart';
 import 'cart_state.dart';
 
 class CartCubit extends Cubit<CartState> {
@@ -77,14 +78,17 @@ class CartCubit extends Cubit<CartState> {
     });
   }
 
-  bool isProductInCart(int index) {
-    if (cartModel != null) {
+  bool isProductInCart(int index, LaptopModel laptop) {
+    if (cartModel != null && cartModel!.products!.isNotEmpty) {
       final products = cartModel!.products;
-      if (index >= 0 && index < products!.length) {
-        final product = products[index];
-        return product.quantity > 0;
+
+      for (final product in products!) {
+        if (product.id == laptop.id) {
+          return true;
+        }
       }
     }
+
     return false;
   }
 }

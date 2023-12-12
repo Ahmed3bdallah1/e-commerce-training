@@ -1,10 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:e_commerce_training/core/cubit/cart/cart_state.dart';
 import 'package:e_commerce_training/core/managers/Lists.dart';
 import 'package:e_commerce_training/core/managers/constants_colors.dart';
+import 'package:e_commerce_training/core/managers/custom_snak_bar.dart';
 import 'package:e_commerce_training/core/managers/navigation.dart';
 import 'package:e_commerce_training/models/product/laptop_modl.dart';
+import 'package:e_commerce_training/screens/modules/cart_screen.dart';
 import 'package:e_commerce_training/screens/modules/product_details.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import '../../core/cubit/cart/cart_cubit.dart';
@@ -66,32 +70,27 @@ class ProductItem extends StatelessWidget {
                               decoration: BoxDecoration(
                                   borderRadius: const BorderRadius.only(
                                       topRight: Radius.circular(20)),
-                                  color:
-                                      HexColor('#07094D').withOpacity(0.6),
-                                  gradient: ConstantsColors()
-                                      .linearGradientYellow),
+                                  color: HexColor('#07094D').withOpacity(0.6),
+                                  gradient:
+                                      ConstantsColors().linearGradientYellow),
                               height: 125,
                               child: Center(
                                 child: Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: CachedNetworkImage(
                                       imageUrl: laptops[index].image,
-                                      imageBuilder:
-                                          (context, imageProvider) =>
-                                              Image(image: imageProvider),
+                                      imageBuilder: (context, imageProvider) =>
+                                          Image(image: imageProvider),
                                       placeholder: (context, url) =>
                                           const Center(
-                                            child:
-                                                CircularProgressIndicator(
-                                                    color: Colors.black),
+                                            child: CircularProgressIndicator(
+                                                color: Colors.black),
                                           ),
                                       errorWidget: (context, url, error) {
                                         print(error.toString());
                                         return Center(
-                                            child:
-                                                CircularProgressIndicator(
-                                                    color: HexColor(
-                                                        '#07094D')));
+                                            child: CircularProgressIndicator(
+                                                color: HexColor('#07094D')));
                                       }),
                                 ),
                               ),
@@ -178,33 +177,50 @@ class ProductItem extends StatelessWidget {
                               ),
                               const Spacer(),
                               Container(
-                                height: 50,
-                                decoration: BoxDecoration(
-                                    color: HexColor('#07094D'),
-                                    borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(20),
-                                        bottomRight: Radius.circular(20))),
-                                child: cubit.isProductInCart(index)
-                                    ? MaterialButton(
-                                        onPressed: () {},
-                                        child: Text(
-                                          'In cart'.toUpperCase(),
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ))
-                                    : MaterialButton(
-                                        onPressed: () {
-                                          cubit.addToCart(context,
-                                              productId: laptops[index].id,
-                                              productName: laptops[index].name);
-                                        },
-                                        child: Text(
-                                          'Buy'.toUpperCase(),
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ),
-                                      ),
-                              )
+                                  height: 50,
+                                  decoration: BoxDecoration(
+                                      color: HexColor('#07094D'),
+                                      borderRadius: const BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          bottomRight: Radius.circular(20))),
+                                  child: BlocConsumer<CartCubit, CartState>(
+                                    listener: (context, state) {},
+                                    builder: (context, state) {
+                                      return cubit.isProductInCart(index,laptops[index]) ==
+                                              true
+                                          ? MaterialButton(
+                                              onPressed: () {
+                                                showSnakBar(context,
+                                                    "long press to go to your cart");
+                                              },
+                                              onLongPress: () {
+                                                navigateToNextScreen(
+                                                    context,
+                                                    CartScreen(
+                                                        laptops: laptops));
+                                              },
+                                              child: Text(
+                                                'In cart'.toUpperCase(),
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            )
+                                          : MaterialButton(
+                                              onPressed: () {
+                                                cubit.addToCart(context,
+                                                    productId:
+                                                        laptops[index].id,
+                                                    productName:
+                                                        laptops[index].name);
+                                              },
+                                              child: Text(
+                                                'Buy'.toUpperCase(),
+                                                style: const TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            );
+                                    },
+                                  ))
                             ],
                           ),
                         )

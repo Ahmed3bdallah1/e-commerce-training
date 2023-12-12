@@ -6,6 +6,7 @@ import 'package:e_commerce_training/models/favorite_model/favorite_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../models/product/laptop_modl.dart';
 import '../../managers/values.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
@@ -54,5 +55,19 @@ class FavoriteCubit extends Cubit<FavoriteState> {
     }).catchError((error) {
       emit(ErrorDeleteFavoriteState(error: error.toString()));
     });
+  }
+
+  bool isProductInFavorite(LaptopModel laptop) {
+    if (favoriteModel != null && favoriteModel!.products!.isNotEmpty) {
+      final products = favoriteModel!.products;
+
+      for (final product in products!) {
+        if (product.id == laptop.id) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }

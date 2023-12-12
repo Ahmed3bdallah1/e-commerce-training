@@ -1,10 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:e_commerce_training/core/cubit/cart/cart_cubit.dart';
 import 'package:e_commerce_training/core/cubit/favorite/favorite_cubit.dart';
+import 'package:e_commerce_training/core/cubit/favorite/favorite_state.dart';
 import 'package:e_commerce_training/core/managers/Lists.dart';
 import 'package:e_commerce_training/core/managers/constants_colors.dart';
 import 'package:e_commerce_training/models/product/laptop_modl.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -39,6 +41,7 @@ class _ProductDetailsState extends State<ProductDetails> {
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+    FavoriteCubit favoriteCubit = FavoriteCubit.get(context);
     return Scaffold(
       body: Container(
         height: height,
@@ -102,15 +105,36 @@ class _ProductDetailsState extends State<ProductDetails> {
                             Positioned(
                                 right: 10,
                                 bottom: 0,
-                                child: FloatingActionButton(
-                                    backgroundColor: Colors.red.shade900,
-                                    foregroundColor: Colors.white,
-                                    onPressed: () {
-                                      FavoriteCubit.get(context).addToFavorite(
-                                          context, widget.laptopModel.id);
-                                    },
-                                    child: const Icon(Icons.favorite_border,
-                                        size: 30)))
+                                child:
+                                    BlocConsumer<FavoriteCubit, FavoriteState>(
+                                  listener: (context, state) {
+                                    favoriteCubit.getFavorite();
+                                  },
+                                  builder: (context, state) {
+                                    return favoriteCubit.isProductInFavorite(
+                                                widget.laptopModel) ==
+                                            true
+                                        ? FloatingActionButton(
+                                            backgroundColor:
+                                                Colors.red.shade900,
+                                            foregroundColor: Colors.white,
+                                            onPressed: () {},
+                                            child: const Icon(Icons.favorite,
+                                                size: 30))
+                                        : FloatingActionButton(
+                                            backgroundColor:
+                                                Colors.red.shade900,
+                                            foregroundColor: Colors.white,
+                                            onPressed: () {
+                                              favoriteCubit.addToFavorite(
+                                                  context,
+                                                  widget.laptopModel.id);
+                                            },
+                                            child: const Icon(
+                                                Icons.favorite_border,
+                                                size: 30));
+                                  },
+                                ))
                           ])),
                       const Divider(color: Colors.white12),
                       Padding(

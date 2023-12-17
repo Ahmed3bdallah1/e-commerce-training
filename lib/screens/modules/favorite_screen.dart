@@ -28,7 +28,7 @@ class FavoriteScreen extends StatelessWidget {
                 child: Column(children: [
                   if (cubit.favoriteModel!.products!.isNotEmpty)
                     SizedBox(
-                      height: MediaQuery.of(context).size.height * .72,
+                      height: MediaQuery.of(context).size.height * .88,
                       child: ListView.builder(
                         itemCount: cubit.favoriteModel!.products!.length,
                         itemBuilder: (context, index) {
@@ -39,8 +39,11 @@ class FavoriteScreen extends StatelessWidget {
                       ),
                     ),
                   if (cubit.favoriteModel!.products!.isEmpty)
-                    const Center(
-                      child: Text('Favorites Is Empty'),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height*.88,
+                      child: const Center(
+                        child: Text('Favorites Is Empty'),
+                      ),
                     ),
                 ])),
           );

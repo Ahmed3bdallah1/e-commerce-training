@@ -6,6 +6,7 @@ import 'package:e_commerce_training/core/managers/constants_colors.dart';
 import 'package:e_commerce_training/models/favorite_model/favorite_model.dart';
 import 'package:e_commerce_training/screens/modules/cart_screen.dart';
 import 'package:e_commerce_training/screens/modules/favorite_screen.dart';
+import 'package:e_commerce_training/screens/modules/profile_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                             return const Icon(Icons.error, color: Colors.red);
                           } else {
                             return FloatingActionButton(
-                              backgroundColor: Colors.white,
+                              backgroundColor: Colors.indigo,
                               onPressed: () {
                                 navigateToNextScreen(
                                     context,
@@ -108,13 +109,14 @@ class HomeScreen extends StatelessWidget {
                               },
                               child: const Icon(
                                 CupertinoIcons.cart,
-                                color: Colors.black,
+                                color: Colors.white,
                               ),
                             );
                           }
                         },
                       ),
-                      label: "Cart"),
+                      label: "Cart",
+                  ),
                   SpeedDialChild(
                       child: FutureBuilder<FavoriteModel>(
                         future: favoriteCubit.getFavorite(),
@@ -146,6 +148,11 @@ class HomeScreen extends StatelessWidget {
                         },
                       ),
                       label: "Favorite"),
+                  SpeedDialChild(
+                    child: const Icon(CupertinoIcons.person),
+                    label: "Profile",
+                    onTap: ()=>navigateToNextScreen(context, const ProfileScreen())
+                  )
                 ],
                 child: const Icon(CupertinoIcons.add),
               ));

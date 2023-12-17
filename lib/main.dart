@@ -1,8 +1,10 @@
 import 'package:e_commerce_training/core/cubit/cart/cart_cubit.dart';
+import 'package:e_commerce_training/core/cubit/edit_profile/edit_profile_cubit.dart';
 import 'package:e_commerce_training/core/cubit/favorite/favorite_cubit.dart';
 import 'package:e_commerce_training/core/cubit/login/login_cubit.dart';
 import 'package:e_commerce_training/core/cubit/onboard/onboard_cubit.dart';
 import 'package:e_commerce_training/core/cubit/product/product_cubit.dart';
+import 'package:e_commerce_training/core/cubit/profile/profile_cubit.dart';
 import 'package:e_commerce_training/core/managers/values.dart';
 import 'package:e_commerce_training/core/network/local/cache_helper.dart';
 import 'package:e_commerce_training/core/network/remote/dio_helper.dart';
@@ -21,6 +23,7 @@ void main() async {
   DioHelperStore.init();
   boarding = CacheHelper.getData(key: "boarding") ?? false;
   token = CacheHelper.getData(key: "token");
+  print(token);
   nationalId = CacheHelper.getData(key: "userId");
   print(nationalId);
   if (token != null && nationalId != null) {
@@ -65,7 +68,15 @@ class MyApp extends StatelessWidget {
           lazy: true,
         ),
         BlocProvider(
+          create: (context) => EditProfileCubit(),
+          lazy: true,
+        ),
+        BlocProvider(
           create: (context) => ProductCubit()..getProduct(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => ProfileCubit()..getUser(context),
           lazy: false,
         ),
       ],

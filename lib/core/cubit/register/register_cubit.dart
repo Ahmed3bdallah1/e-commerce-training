@@ -6,6 +6,7 @@ import 'package:e_commerce_training/core/managers/values.dart';
 import 'package:e_commerce_training/core/network/remote/api_constants.dart';
 import 'package:e_commerce_training/core/network/remote/dio_helper.dart';
 import 'package:e_commerce_training/models/user/user_model.dart';
+import 'package:e_commerce_training/screens/modules/signin.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -32,7 +33,9 @@ class RegisterCubit extends Cubit<RegisterState> {
     }).then((value) {
       UserData.fromJson(value.data);
       print(value.data);
-      navigateAndFinishThisScreen(context, const HomeScreen());
+      if (userModel!.user != null) {
+        navigateAndFinishThisScreen(context, SignInScreen());
+      }
       emit(DoneStateRegister(userModel!));
     }).catchError((onError) {
       print("----- user register-----");
